@@ -67,4 +67,18 @@
 	<ItemGroup>
 		<Folder Include="Resources\Unauthorized\" />
 	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Unit\Markdown\TestMarkdownServiceTestsWithIOC.WriteIndex_ShouldWriteExpectedMarkdownContent.verified.txt">
+	    <DependentUpon>TestMarkdownServiceTestsWithIOC.cs</DependentUpon>
+	  </None>
+	  <None Update="Unit\Markdown\TestMarkdownServiceTestsWithoutAnything.WriteIndex_ShouldWriteExpectedMarkdownContent.verified.txt">
+	    <DependentUpon>TestMarkdownServiceTestsWithoutAnything.cs</DependentUpon>
+	  </None>
+	  <None Update="Unit\Markdown\TestMarkdownServiceTestsWithoutSnapshot.WriteIndex_ShouldWriteExpectedMarkdownContent.verified.txt">
+	    <DependentUpon>TestMarkdownServiceTestsWithoutSnapshot.cs</DependentUpon>
+	  </None>
+	  <None Update="Unit\Markdown\TestMarkdownServiceTestsWithoutIOC.WriteIndex_ShouldWriteExpectedMarkdownContent.verified.txt">
+	    <DependentUpon>TestMarkdownServiceTestsWithoutIOC.cs</DependentUpon>
+	  </None>
+	</ItemGroup>
 </Project>

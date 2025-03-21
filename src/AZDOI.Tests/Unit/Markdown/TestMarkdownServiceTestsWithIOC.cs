@@ -1,6 +1,6 @@
 ﻿namespace AZDOI.Tests.Unit.Markdown;
 
-public class TestMarkdownServiceTests
+public class TestMarkdownServiceTestsWithIOC
 {
     [Fact]
     public async Task WriteIndex_ShouldWriteExpectedMarkdownContent()
