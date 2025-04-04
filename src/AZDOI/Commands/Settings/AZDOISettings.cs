@@ -3,8 +3,13 @@ using AZDOI.Commands.Validation;
 
 namespace AZDOI.Commands.Settings;
 
-public class AZDOISettings(ICakeEnvironment environment) : CommandSettings, Services.AzureDevOps.IAzureDevOpsClientSettings
+public abstract class AZDOISettings(
+    ICakeEnvironment environment,
+    AzureDevOpsProjectChildTypes projectChildTypes
+    ) : CommandSettings, Services.AzureDevOps.IAzureDevOpsClientSettings
 {
+    public virtual AzureDevOpsProjectChildTypes ProjectChildTypes => projectChildTypes;
+
     [Description("Azure DevOps organization name")]
     [CommandArgument(0, "<devopsorg>")]
     [ValidateOrg]
@@ -27,6 +32,10 @@ public class AZDOISettings(ICakeEnvironment environment) : CommandSettings, Serv
     [CommandOption("--azure-tenant-id")]
     public string? AzureTenantId { get; set; } = environment.GetEnvironmentVariable("AZURE_TENANT_ID");
 
+    [CommandOption("--run-in-parallel")]
+    [Description("Flag for if generation should be parallelized.")]
+    public bool RunInParallel { get; set; }
+
     [Description("Include specific projects")]
     [CommandOption("--include-project")]
     public string[]? IncludeProjects { get; set; }
@@ -35,23 +44,19 @@ public class AZDOISettings(ICakeEnvironment environment) : CommandSettings, Serv
     [CommandOption("--exclude-project")]
     public string[]? ExcludeProjects { get; set; }
 
-    [Description("Include specific repositories")]
-    [CommandOption("--include-repository")]
-    public string[]? IncludeRepositories { get; set; }
+    [Description("Skip generating the org graph")]
+    [CommandOption("--skip-org-graph")]
+    public bool SkipOrgGraph { get; set; }
 
-    [Description("Exclude specific repositories")]
-    [CommandOption("--exclude-repository")]
-    public string[]? ExcludeRepositories { get; set; }
+    public virtual string[]? IncludeRepositories { get; set; }
 
-    [Description("Include specific repository README")]
-    [CommandOption("--include-repository-readme")]
-    public string[]? IncludeRepositoriesReadme { get; set; }
+    public virtual string[]? ExcludeRepositories { get; set; }
 
-    [Description("Exclude specific repository README")]
-    [CommandOption("--exclude-repository-readme")]
-    public string[]? ExcludeRepositoriesReadme { get; set; }
+    public virtual string[]? IncludeRepositoriesReadme { get; set; }
 
-    [CommandOption("--run-in-parallel")]
-    [Description("Flag for if generation should be parallelized.")]
-    public bool RunInParallel { get; set; }
+    public virtual string[]? ExcludeRepositoriesReadme { get; set; }
+
+    public virtual string[]? IncludePipelines { get; set; }
+
+    public virtual string[]? ExcludePipelines { get; set; }
 }
