@@ -5,10 +5,6 @@ modifiedby: AZDOI
 modified: 2000-01-01 00:00
 ---
 # MyOrg DevOps Organization,
-<<<<<<< HEAD
   Equal: false,
   FileExists: true
-=======
-  Equal: false
->>>>>>> 9ad4ab4f9487e59dfd18a781426e113026c709e5
 }
