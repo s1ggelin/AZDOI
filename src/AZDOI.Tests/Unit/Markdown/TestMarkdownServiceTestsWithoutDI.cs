@@ -11,7 +11,6 @@ public class TestMarkdownServiceTestsWithoutDI
     public async Task WriteIndex_ShouldWriteExpectedMarkdownContent()
     {
         // Given
-        //var (fileSystem, service) = ServiceProviderFixture.GetRequiredService<FakeFileSystem, TestMarkdownService>();
         ICakeEnvironment environment = FakeEnvironment.CreateUnixEnvironment();
         IFileSystem fileSystem = new FakeFileSystem(environment);
         ICakeContext context = Substitute.For<ICakeContext>();
