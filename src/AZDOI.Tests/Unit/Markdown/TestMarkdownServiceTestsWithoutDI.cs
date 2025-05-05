@@ -5,7 +5,7 @@ using NSubstitute;
 
 namespace AZDOI.Tests.Unit.Markdown;
 
-public class TestMarkdownServiceTestsWithoutIOC
+public class TestMarkdownServiceTestsWithoutDI
 {
     [Fact]
     public async Task WriteIndex_ShouldWriteExpectedMarkdownContent()
