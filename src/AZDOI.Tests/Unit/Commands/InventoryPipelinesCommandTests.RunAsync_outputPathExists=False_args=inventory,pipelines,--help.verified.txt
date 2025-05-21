@@ -2,7 +2,7 @@
   ExitCode: 0,
   ConsoleOutput:
 DESCRIPTION:
-Example get pipelines command.
+Example get pipelines command
 
 USAGE:
     AZDOI inventory pipelines <devopsorg> <outputpath> [OPTIONS]
@@ -27,8 +27,9 @@ OPTIONS:
         --skip-org-graph      Skip generating the org graph                     
         --include-pipeline    Include specific pipelines                        
         --exclude-pipeline    Exclude specific pipelines                        
+        --include-release     Include specific releases                         
+        --exclude-release     Exclude specific releases                         
 ,
-  LogOutput: [],
   FileSystem: {
     Path: /output,
     Exists: false,

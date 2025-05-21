@@ -24,7 +24,7 @@ public partial class InventoryCommand<TSettings>
                             {
                                 using var _ = Logger.BeginScope(new { ProjectId = sourceProject.Id });
 
-                                var projectOutputDirectory = context.OutputDirectory.Combine(sourceProject.Name);
+                                var projectOutputDirectory = context.OutputDirectory.CombineEscapeUri(sourceProject.Name);
 
                                 var buildDirectory = projectOutputDirectory.Combine("Build");
 
@@ -44,7 +44,14 @@ public partial class InventoryCommand<TSettings>
                                                     OutputDirectory = buildDirectory,
                                                 },
                                                 sourceProject
-                                    )
+                                    ),
+                                    Releases = await ProcessReleases(
+                                               context with
+                                               {
+                                                   OutputDirectory = buildDirectory,
+                                               },
+                                               sourceProject
+                                        )
                                 };
 
                                 await services.ProjectMarkdownService.WriteIndex(projectOutputDirectory, project);

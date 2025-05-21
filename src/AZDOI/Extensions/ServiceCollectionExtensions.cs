@@ -1,5 +1,10 @@
 ﻿using AZDOI.Services.AzureDevOps;
-using AZDOI.Services.Markdown;
+using AZDOI.Services.Markdown.Builds;
+using AZDOI.Services.Markdown.Builds.MarkdownReleases;
+using AZDOI.Services.Markdown.Builds.Pipelines;
+using AZDOI.Services.Markdown.Organization;
+using AZDOI.Services.Markdown.Projects;
+using AZDOI.Services.Markdown.Repositories;
 using Azure.Core;
 using Azure.Identity;
 
@@ -102,7 +107,9 @@ public static class ServiceCollectionExtensions
             .AddSingleton<RepositoryMarkdownService>()
             .AddSingleton<PipelineMarkdownService>()
             .AddSingleton<PipelinesMarkdownService>()
-            .AddSingleton<BuildsMarkdownService>();
+            .AddSingleton<BuildsMarkdownService>()
+            .AddSingleton<ReleasesMarkdownService>()
+            .AddSingleton<ReleaseMarkdownService>();
 
         return services;
     }

@@ -1,5 +1,4 @@
 ﻿using AZDOI.Services;
-using Microsoft.Extensions.Logging.Testing;
 using Spectre.Console.Cli;
 using Spectre.Console.Testing;
 
@@ -26,11 +25,13 @@ public class InventoryPipelinesCommandTests
     [InlineData(true, "inventory", "pipelines", "test-org", "/output", "--pat=test-pat", "--exclude-pipeline=123")]
     [InlineData(true, "inventory", "pipelines", "test-org", "/output", "--pat=test-pat", "--include-project=123")]
     [InlineData(true, "inventory", "pipelines", "test-entraid-org", "/output", "--entra-id-auth", "--include-project=123")]
+    [InlineData(true, "inventory", "pipelines", "test-org", "/output", "--pat=test-pat", "--include-release=123")]
+    [InlineData(true, "inventory", "pipelines", "test-org", "/output", "--pat=test-pat", "--exclude-release=123")]
     public async Task RunAsync(bool outputPathExists, params string[] args)
     {
         // Given
-        var (commandApp, testConsole, fakeLog, fakeFileSystem, fakeEnvironment, stopwatchProvider) = ServiceProviderFixture
-                                           .GetRequiredService<ICommandApp, TestConsole, FakeLogger<InventoryPipelinesCommand>, FakeFileSystem, FakeEnvironment, StopwatchProvider>(
+        var (commandApp, testConsole, fakeFileSystem, fakeEnvironment, stopwatchProvider) = ServiceProviderFixture
+                                           .GetRequiredService<ICommandApp, TestConsole, FakeFileSystem, FakeEnvironment, StopwatchProvider>(
                                                services => services.AuthorizedClient()
                                                                    .EntraIdAuthorizedClient()
                                            );
@@ -40,6 +41,7 @@ public class InventoryPipelinesCommandTests
         {
             fakeFileSystem.CreateDirectory("/output");
         }
+        Recording.Start();
         var result = await commandApp.RunAsync(args);
 
         // Then
@@ -48,12 +50,8 @@ public class InventoryPipelinesCommandTests
                 {
                     ExitCode = result,
                     ConsoleOutput = testConsole.Output,
-                    LogOutput = fakeLog.Collector.GetSnapshot(),
                     FileSystem = fakeFileSystem.FromDirectoryPath("/output")
                 }
-            )
-            .DontIgnoreEmptyCollections()
-            .AddExtraSettings(setting => setting.DefaultValueHandling = Argon.DefaultValueHandling.Include)
-            .IgnoreStackTrace();
+            );
     }
 }
